@@ -32,13 +32,15 @@ def write_to_json(issues, file_path):
 def load_config(file_path='config.json'):
     with open(file_path, 'r') as config_file:
         config = json.load(config_file)
-    return config.get('username'), config.get('password')
+    return config.get('username'), config.get('password'), config.get('sonar_url')
 
 if __name__ == "__main__":
-    api_url = "https://ci.mint-online.com/api/issues/search"
+    
 
     # Load username and password from config file
-    username, password = load_config()
+    username, password, sonar_url = load_config()
+
+    api_url = sonar_url + "/api/issues/search"
 
     fetched_issues = fetch_issues(api_url, username, password)
     
